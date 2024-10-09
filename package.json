@@ -1,18 +1,17 @@
 {
   "private": false,
-  "name": "@unimonkiez/semantic-release-python",
-  "version": "2.5.34",
-  "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
+  "name": "@pdecat/semantic-release-python",
+  "version": "2.5.37",
+  "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects. Fork of https://github.com/unimonkiez/semantic-release-python which is a fork of https://github.com/megabyte-labs/semantic-release-python which moved to https://github.com/ProfessorManhattan/semantic-release-python then to https://gitlab.com/megabyte-labs/npm/archive/semantic-release-python ",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
-  "homepage": "https://megabyte.space",
+  "homepage": "https://github.com/pdecat/semantic-release-python",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/megabyte-labs/semantic-release-python.git"
+    "url": "git+https://github.com/pdecat/semantic-release-python.git"
   },
   "bugs": {
-    "email": "help@megabyte.space",
-    "url": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python/-/issues"
+    "url": "https://github.com/pdecat/semantic-release-python/issues"
   },
   "type": "commonjs",
   "main": "index.js",
