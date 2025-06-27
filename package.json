@@ -1,8 +1,8 @@
 {
   "private": false,
   "name": "@pdecat/semantic-release-python",
-  "version": "2.5.37",
-  "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects. Fork of https://github.com/unimonkiez/semantic-release-python which is a fork of https://github.com/megabyte-labs/semantic-release-python which moved to https://github.com/ProfessorManhattan/semantic-release-python then to https://gitlab.com/megabyte-labs/npm/archive/semantic-release-python ",
+  "version": "2.6.0",
+  "description": "A semantic-release plugin for Python (with support for both setup.cfg/setup.py and pyproject.toml with e.g. Poetry and uv). Fork of https://github.com/unimonkiez/semantic-release-python which is a fork of https://github.com/pdecat/semantic-release-python which moved to https://github.com/ProfessorManhattan/semantic-release-python then to https://gitlab.com/megabyte-labs/npm/archive/semantic-release-python ",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
   "homepage": "https://github.com/pdecat/semantic-release-python",
@@ -16,64 +16,32 @@
   "type": "commonjs",
   "main": "index.js",
   "files": [
-    ".config/log",
-    ".config/taskfiles",
-    "Taskfile.yml",
-    "lib",
-    "start.sh"
+    "lib"
   ],
   "scripts": {
-    "build": "bash start.sh && task npm:build:tsconfig",
-    "bump": "npm run build && npm version patch --no-scripts --no-commit-hooks --no-git-tag-version --force && SKIP_PREPUB=true npm publish",
-    "commit": "bash start.sh && task commit",
-    "fix": "bash start.sh && task fix",
-    "help": "bash start.sh && task --menu",
-    "postinstall": "([ \"$SEMANTIC_PYTHON_POST_INSTALL\" == 'true' ] && type bash > /dev/null && bash start.sh && type python3 > /dev/null && INIT_CWD=$INIT_CWD task install:python:venv:node) || true",
-    "lint": "bash start.sh && task lint",
-    "preload": "bash start.sh && task preload",
-    "prepare": "bash start.sh && (test -f Taskfile.yml && task npm:prepare) || true",
-    "release": "bash start.sh && task publish:semantic-release",
-    "repair": "bash <(curl -sS https://install.doctor/repair)",
-    "start": "test -z $SKIP_NPM_START && bash start.sh || true",
-    "test": "bash start.sh && task npm:test:none",
-    "unpack": "bash start.sh && task npm:bundle:unpack",
-    "update": "bash start.sh && task update",
-    "vscode": "bash start.sh && task vscode"
+    "test": "jest"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/git-cz-emoji"
-    }
-  },
-  "typings": "dist/main.d.ts",
   "dependencies": {
     "execa": "^4.1.0",
-    "form-data": "^3.0.1",
-    "fs-extra": "^10.0.0",
-    "got": "^11.8.3",
-    "tslib": "latest",
+    "form-data": "^3.0.3",
+    "fs-extra": "^10.1.0",
+    "glob": "^11.0.3",
+    "got": "^11.8.6",
     "uuid": "^8.3.2"
   },
   "optionalDependencies": {},
   "devDependencies": {
     "@commitlint/config-conventional": "latest",
-    "@types/node": "^16.11.6",
-    "esbuild": "^0.12.29",
-    "esbuild-node-externals": "^1.3.0",
+    "esbuild": "latest",
+    "esbuild-node-externals": "latest",
     "eslint-config-strict-mode": "latest",
-    "git-cz-emoji": "latest",
-    "handlebars-helpers": "latest",
-    "jest-preset-ts": "latest",
+    "jest": "^30.0.3",
     "prettier-config-sexy-mode": "latest",
-    "semantic-release-config": "latest",
-    "typescript": "^4.5.5"
+    "semantic-release-config": "latest"
   },
   "keywords": [
-    "mblabs",
-    "megabytelabs",
     "plugin",
     "poetry",
-    "professormanhattan",
     "publish",
     "pypi",
     "pyproject",
@@ -83,46 +51,10 @@
     "semantic",
     "semantic-release",
     "setupcfg",
-    "washingtondc"
+    "uv"
   ],
   "engines": {
     "node": ">=14.18.0"
-  },
-  "publishConfig": {
-    "@gitlab:registry": "https://gitlab.com/api/v4/projects/33027011/packages/npm/",
-    "@megabyte:registry": "https://gitlab.com/api/v4/projects/33027011/packages/npm/",
-    "access": "public",
-    "registry": "https://registry.npmjs.org/",
-    "tag": "edge"
-  },
-  "blueprint": {
-    "customPackageName": "semantic-release-python",
-    "description": "A semantic-release plugin for PyPi.org that supports both regular and Poetry projects",
-    "github_id": "R_kgDOGtuKiw",
-    "gitlab_group_id": "14035198",
-    "gitlab_project_id": "33027011",
-    "group": "npm",
-    "jsonOverrides": {
-      "package.json": {
-        "files": [
-          ".config/taskfiles",
-          ".config/log",
-          "Taskfile.yml",
-          "start.sh",
-          "lib"
-        ],
-        "main": "index.js"
-      }
-    },
-    "name": "Semantic Release Python",
-    "overview": "**Semantic Release Python** is a [semantic-release](https://semantic-release.gitbook.io/semantic-release/) plugin that brings support for managing the publication of PyPi packages. It supports traditional Python projects with a `setup.cfg` file and also **supports Poetry projects**.\n\nThis plugin requires both Python 3 and a recent version of Node.js to be present. After installing the plugin, a few supporting Python packages will automatically be installed into a `virtualenv` located at `.venv`. Using a virtualenv helps to prevent incompatibilities with your current installed software. Before you run any configuration that contains, you must source the virtualenv by running `. venv/bin/activate` or install the dependencies in this project's `requirements.txt` through other means prior to utilizing the plugin.",
-    "repository": {
-      "github": "https://github.com/megabyte-labs/semantic-release-python",
-      "gitlab": "https://gitlab.com/megabyte-labs/npm/plugin/semantic-release-python"
-    },
-    "slug": "semantic-release-python",
-    "subgroup": "plugin",
-    "title": "Semantic Release Python (with Poetry Support)"
   },
   "changelog": {
     "displayTypes": [
@@ -137,8 +69,7 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ],
-    "helpUrl": "https://megabyte.space/docs/contributing/commits"
+    ]
   },
   "eslintConfig": {
     "extends": "eslint-config-strict-mode",
@@ -179,137 +110,7 @@
       "unicorn/prevent-abbreviations": "off"
     }
   },
-  "funding": [
-    {
-      "type": "opencollective",
-      "url": "https://opencollective.com/megabytelabs"
-    },
-    {
-      "type": "patreon",
-      "url": "https://www.patreon.com/ProfessorManhattan"
-    }
-  ],
-  "jest": {
-    "preset": "jest-preset-ts",
-    "reporters": [
-      "default",
-      [
-        "jest-html-reporters",
-        {
-          "filename": "index.html",
-          "logoImgPath": "./.config/assets/logo-jest-report.png",
-          "openReport": true,
-          "pageTitle": "Code Coverage Report",
-          "publicPath": "./coverage"
-        }
-      ]
-    ]
-  },
-  "jscpd": {
-    "gitignore": true,
-    "threshold": 0.1
-  },
-  "lint-staged": {
-    "(Brewfile|composer.lock|Gemfile|Gopkg.lock|Pipfile.lock)": [
-      "task fix:prettier --"
-    ],
-    "**/!(logo).(jpg|png)": [
-      "task image:compress --"
-    ],
-    "**/*": [
-      "task lint:any --"
-    ],
-    "**/*!(template).(json|webapp|webmanifest)": [
-      "task fix:json --"
-    ],
-    "**/*.(bash|cfg|cgi|command|css|env|env.*|handlebars|hbs|html|less|fcgi|java|md|mdx|mjml|php|phtml|properties|reg|scss|tmpl|tmux|tool|tpl|zsh)": [
-      "task fix:prettier --"
-    ],
-    "**/*.(cjs|js|jsx|mjs|ts|tsx)": [
-      "task fix:js --",
-      "task lint:js --"
-    ],
-    "**/*.(yml|yaml)": [
-      "task fix:yaml --",
-      "task lint:yaml --"
-    ],
-    "**/*.go": [
-      "task fix:go --",
-      "task lint:go --"
-    ],
-    "**/*.md": [
-      "task fix:markdown --",
-      "task lint:spelling:markdown --"
-    ],
-    "**/*.php": [
-      "task fix:php --",
-      "task lint:php --"
-    ],
-    "**/*.py": [
-      "task fix:python --",
-      "task lint:python --"
-    ],
-    "**/*.sh": [
-      "task fix:prettier --",
-      "task fix:shell --",
-      "task lint:shell --"
-    ],
-    "**/*.toml": [
-      "task fix:toml --",
-      "task fix:prettier --",
-      "task lint:toml --"
-    ],
-    "**/*.xml": [
-      "task fix:xml --",
-      "task lint:xml --"
-    ],
-    "Dockerfile": [
-      "task fix:prettier --",
-      "task lint:docker --"
-    ],
-    "Vagrantfile": [
-      "task fix:prettier --",
-      "task lint:vagrant"
-    ],
-    "logo.png": [
-      "task image:resize -- 200 200",
-      "task image:compress --"
-    ]
-  },
-  "nodemonConfig": {
-    "exec": "tsc -p . && node --inspect-brk dist/main",
-    "ext": "js,jsx,json,ts,tsx,yml",
-    "ignore": [
-      "src/**/*.spec.ts"
-    ],
-    "watch": [
-      ".env",
-      "src"
-    ]
-  },
-  "ntl": {
-    "descriptions": {
-      "build": "Builds the project using the build command specified under scripts in package.json",
-      "bump": "Used to quickly build, increase the package.json version, and publish the package",
-      "commit": "If unsure, use this task to commit your code so that it adheres to our commit rules",
-      "fix": "Run auto-fixing with all available auto-fixers",
-      "help": "Display the Bodega Taskfile.yml interactive help menu",
-      "lint": "Lint the project with all available linters",
-      "preload": "Preload the operating system with commonly used libraries and tools",
-      "prepare": "A hook triggered by running npm install that runs logic such as installing pre-commit hooks",
-      "release": "Publish the software to all supported channels using semantic-release",
-      "repair": "Fixes basic issues in projects that are having trouble running basic commands like 'task start'",
-      "start": "Entrypoint for new developers that installs requirements and then runs 'task start'",
-      "test": "Runs the appropriate test logic by running the test command defined under scripts in package.json",
-      "unpack": "Populates production node_modules from compressed copies saved in the .modules/ folder",
-      "update": "Update and refresh the repository with upstream changes and templated parts"
-    }
-  },
   "pnpm": {
-    "allowedVersions": {
-      "@typescript-eslint/eslint-plugin": "5",
-      "typescript": "4"
-    },
     "neverBuiltDependencies": [
       "core-js",
       "core-js-pure",
@@ -323,17 +124,5 @@
       ]
     }
   },
-  "prettier": "prettier-config-sexy-mode",
-  "release": {
-    "branches": [
-      "main",
-      "master",
-      "next",
-      {
-        "name": "beta",
-        "prerelease": true
-      }
-    ],
-    "extends": "semantic-release-config"
-  }
+  "prettier": "prettier-config-sexy-mode"
 }
