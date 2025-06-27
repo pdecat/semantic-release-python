@@ -1,12 +1,15 @@
-const { assertEnvVar, assertExitCode, assertPackage, verifySetupPy, verifyAuth } = require('../lib/verify')
-const path = require('path')
-const fs = require('fs-extra')
-const { genPackage } = require('./util')
+import { afterEach, expect, test, vi } from 'vitest'
+
+import path from 'path'
+import fs from 'fs-extra'
+
+import { assertEnvVar, assertExitCode, assertPackage, verifySetupPy, verifyAuth } from '../lib/verify.js';
+import { genPackage } from './util.js'
 
 const setupPy = '.tmp/verify/setup.py'
 const packageName = 'semantic-release-pypi-verify-test'
 
-afterAll(async () => {
+afterEach(async () => {
   fs.removeSync(path.dirname(setupPy))
 })
 
@@ -31,13 +34,13 @@ test('test assertPackage', async () => {
 test('test verifySetupPy', async () => {
   const testfn = async (setupPyContent, resolves) => {
     await genPackage(setupPy, packageName, setupPyContent)
-    const promise = verifySetupPy(setupPy)
+    const promise = verifySetupPy(setupPy, console)
 
     if (resolves === false) {
       return expect(promise).rejects.toThrow()
     }
 
-    return expect(promise).resolves.toBe(undefined)
+    return expect(promise).resolves.toBeUndefined()
   }
 
   await testfn(`from setuptools import setup\nsetup()`, true)

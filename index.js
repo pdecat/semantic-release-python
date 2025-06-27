@@ -1,9 +1,3 @@
-const { verify } = require('./lib/verify')
-const { prepare } = require('./lib/prepare')
-const { publish } = require('./lib/publish')
-
-module.exports = {
-  prepare,
-  publish,
-  verifyConditions: verify
-}
+export { verifyConditions } from './lib/verify.js'
+export { prepare } from './lib/prepare.js'
+export { publish } from './lib/publish.js'

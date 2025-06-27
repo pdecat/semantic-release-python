@@ -1,10 +1,13 @@
-const { verifyConditions, prepare, publish } = require('../index')
-const { genPluginArgs, hasPackage } = require('./util')
-const fs = require('fs-extra')
+import { afterEach, expect, test } from 'vitest'
+
+import fs from 'fs-extra'
+
+import { verifyConditions, prepare, publish } from '../index.js'
+import { genPluginArguments, hasPackage } from './util.js'
 
 const packageDir = '.tmp/package'
 
-afterAll(async () => {
+afterEach(async () => {
   fs.removeSync(packageDir)
 })
 
@@ -16,7 +19,7 @@ test('test semantic-release-pypi', async () => {
   }
   process.env.PYPI_TOKEN = process.env.TESTPYPI_TOKEN
 
-  const { config, context, packageName } = await genPluginArgs(`${packageDir}/default/setup.py`)
+  const { config, context, packageName } = await genPluginArguments(`${packageDir}/default/setup.py`)
 
   await verifyConditions(config, context)
   await prepare(config, context)
@@ -27,7 +30,7 @@ test('test semantic-release-pypi', async () => {
 }, 30_000)
 
 test('test semantic-release-pypi with pypiPublish unset', async () => {
-  const { config, context } = await genPluginArgs(`${packageDir}/private/setup.py`, 'private')
+  const { config, context } = await genPluginArguments(`${packageDir}/private/setup.py`, 'private')
   config.pypiPublish = false
 
   await verifyConditions(config, context)

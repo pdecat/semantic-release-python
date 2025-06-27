@@ -13,31 +13,24 @@
   "bugs": {
     "url": "https://github.com/pdecat/semantic-release-python/issues"
   },
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "files": [
     "lib"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "vitest"
   },
   "dependencies": {
-    "execa": "^4.1.0",
-    "form-data": "^3.0.3",
-    "fs-extra": "^10.1.0",
-    "glob": "^11.0.3",
-    "got": "^11.8.6",
-    "uuid": "^8.3.2"
+    "execa": "latest",
+    "form-data": "latest",
+    "fs-extra": "latest",
+    "glob": "latest",
+    "got": "latest",
+    "uuid": "latest"
   },
-  "optionalDependencies": {},
   "devDependencies": {
-    "@commitlint/config-conventional": "latest",
-    "esbuild": "latest",
-    "esbuild-node-externals": "latest",
-    "eslint-config-strict-mode": "latest",
-    "jest": "^30.0.3",
-    "prettier-config-sexy-mode": "latest",
-    "semantic-release-config": "latest"
+    "vitest": "^3.2.4"
   },
   "keywords": [
     "plugin",
@@ -54,75 +47,6 @@
     "uv"
   ],
   "engines": {
-    "node": ">=14.18.0"
-  },
-  "changelog": {
-    "displayTypes": [
-      "feat",
-      "fix",
-      "perf",
-      "refactor",
-      "revert"
-    ],
-    "showAuthor": true
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "eslint-config-strict-mode",
-    "rules": {
-      "@typescript-eslint/no-var-requires": "off",
-      "eqeqeq": "off",
-      "filenames/no-index": "off",
-      "fp/no-loops": "off",
-      "fp/no-mutating-assign": "off",
-      "fp/no-mutation": "off",
-      "fp/no-throw": "off",
-      "functional/immutable-data": "off",
-      "functional/no-let": "off",
-      "functional/no-loop-statement": "off",
-      "functional/no-throw-statement": "off",
-      "functional/no-try-statement": "off",
-      "import/no-extraneous-dependencies": "warn",
-      "init-declarations": "off",
-      "jsdoc/require-param-description": "off",
-      "jsdoc/require-param-type": "off",
-      "jsdoc/require-returns": "off",
-      "jsdoc/require-returns-description": "off",
-      "max-params": "off",
-      "max-statements": "off",
-      "no-await-in-loop": "off",
-      "no-loops/no-loops": "off",
-      "no-magic-numbers": "off",
-      "no-undef": "off",
-      "no-undefined": "off",
-      "no-use-extend-native/no-use-extend-native": "off",
-      "no-useless-concat": "off",
-      "require-await": "off",
-      "require-jsdoc": "off",
-      "unicorn/consistent-function-scoping": "off",
-      "unicorn/filename-case": "off",
-      "unicorn/no-null": "off",
-      "unicorn/prefer-module": "off",
-      "unicorn/prevent-abbreviations": "off"
-    }
-  },
-  "pnpm": {
-    "neverBuiltDependencies": [
-      "core-js",
-      "core-js-pure",
-      "highlight.js"
-    ],
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "eslint",
-        "prettier",
-        "puppeteer"
-      ]
-    }
-  },
-  "prettier": "prettier-config-sexy-mode"
+    "node": ">=20.19"
+  }
 }

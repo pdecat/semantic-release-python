@@ -1,8 +1,11 @@
-const { setopt } = require('../lib/util')
-const path = require('path')
-const fs = require('fs-extra')
-const got = require('got')
-const { v4: uuidv4 } = require('uuid')
+import { vi } from 'vitest'
+
+import path from 'path'
+import fs from 'fs-extra'
+import got from 'got'
+import { v4 as uuidv4 } from 'uuid'
+
+import { setopt } from '../lib/util.js'
 
 const defaultContent = `
 from setuptools import setup
@@ -14,15 +17,17 @@ setup()
  * @param name
  * @param content
  */
-async function genPackage(setupPy, name, content = defaultContent) {
+export async function genPackage(setupPy, name, content = defaultContent) {
   const dir = path.dirname(setupPy)
   fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(setupPy, content)
 
   const options = [['name', name]]
 
-  for (const [option, value] of options) {
-    await setopt(setupPy, 'metadata', option, value)
+  if (setupPy === 'setup.py') {
+    for (const [option, value] of options) {
+      await setopt(setupPy, 'metadata', option, value)
+    }
   }
 }
 
@@ -31,7 +36,7 @@ async function genPackage(setupPy, name, content = defaultContent) {
  * @param packageName
  * @param version
  */
-async function hasPackage(repoUrl, packageName, version) {
+export async function hasPackage(repoUrl, packageName, version) {
   const url = `${repoUrl}/pypi/${packageName}/${version}/json`
   try {
     await got.get(url)
@@ -48,7 +53,7 @@ async function hasPackage(repoUrl, packageName, version) {
  * @param name
  * @returns {{config: object, context: object, packageName: string}}
  */
-async function genPluginArguments(setupPy, name = 'integration') {
+export async function genPluginArguments(setupPy, name = 'integration') {
   const packageName = `semantic-release-pypi-${name}-test-${uuidv4()}`
 
   const config = {
@@ -58,7 +63,7 @@ async function genPluginArguments(setupPy, name = 'integration') {
 
   const context = {
     logger: {
-      log: jest.fn()
+      log: vi.fn()
     },
     nextRelease: {
       version: '1.2.3'
@@ -70,10 +75,4 @@ async function genPluginArguments(setupPy, name = 'integration') {
   await genPackage(setupPy, packageName)
 
   return { config, context, packageName }
-}
-
-module.exports = {
-  genPackage,
-  genPluginArgs: genPluginArguments,
-  hasPackage
 }

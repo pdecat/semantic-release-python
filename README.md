@@ -49,14 +49,14 @@ This plugin requires both Python 3 and a recent version of Node.js to be present
 
 ## Requirements
 
-If you are simply including this library in your project, all you need is a recent version of Node.js. **[Node.js >14.18.0](repository.project.node)** is sometimes required and is the only version range we actively support. Albeit, it is highly probable that lower versions will work as well depending on the requirements that this project imports.
+If you are simply including this library in your project, all you need is a recent version of Node.js, **Node.js >= 18** is sometimes required and is the only version range we actively support. Albeit, it is highly probable that lower versions will work as well depending on the requirements that this project imports.
 
 ### Developer Requirements
 
 The following versions of Node.js and Python are required for development:
 
-- **[Node.js >14.18.0](repository.project.node)**
-- **[Python >3.10.0](repository.project.python)**
+- **Node.js >= 18**
+- **Python >= 3.10**
 
 Other versions may work, but only the above versions are supported. 
 
