@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@pdecat/semantic-release-python",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "description": "A semantic-release plugin for Python (with support for both setup.cfg/setup.py and pyproject.toml with e.g. Poetry and uv). Fork of https://github.com/unimonkiez/semantic-release-python which is a fork of https://github.com/megabyte-labs/semantic-release-python which moved to https://github.com/ProfessorManhattan/semantic-release-python then to https://gitlab.com/megabyte-labs/npm/archive/semantic-release-python ",
   "license": "MIT",
   "author": "Brian Zalewski <brian@megabyte.space> (https://megabyte.space)",
