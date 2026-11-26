@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "execa": "latest",
-    "form-data": "latest",
     "fs-extra": "latest",
     "glob": "latest",
     "got": "latest",

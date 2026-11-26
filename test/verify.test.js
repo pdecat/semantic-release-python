@@ -1,5 +1,6 @@
 import { afterEach, expect, test, vi } from 'vitest'
 
+import http from 'http'
 import path from 'path'
 import fs from 'fs-extra'
 
@@ -58,4 +59,35 @@ test('test verifyAuth', async () => {
   } else {
     console.warn('skipped verifyAuth because TESTPYPI_TOKEN is not set')
   }
+})
+
+test('verifyAuth sends the upload form and only accepts an answer other than 403', async () => {
+  const goodAuth = `Basic ${Buffer.from('__token__:good').toString('base64')}`
+  const bodies = []
+  const server = http.createServer((req, res) => {
+    let body = ''
+    req.on('data', (chunk) => (body += chunk))
+    req.on('end', () => {
+      bodies.push({ contentType: req.headers['content-type'], body })
+      // Like PyPI: valid credentials still fail the empty upload, invalid ones are refused
+      res.statusCode = req.headers.authorization === goodAuth ? 400 : 403
+      res.end()
+    })
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const repoUrl = `http://127.0.0.1:${server.address().port}/legacy/`
+
+  try {
+    await expect(verifyAuth(repoUrl, '__token__', 'bad')).rejects.toThrow()
+    await expect(verifyAuth(repoUrl, '__token__', 'good')).resolves.toBe(undefined)
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+  }
+
+  expect(bodies).toHaveLength(2)
+  expect(bodies[0].contentType).toMatch(/^multipart\/form-data; boundary=/)
+  expect(bodies[0].body).toMatch(/name=":action"\r\n\r\nfile_upload/)
+
+  // The server is gone: the credentials could not be checked
+  await expect(verifyAuth(repoUrl, '__token__', 'good')).rejects.toThrow()
 })
